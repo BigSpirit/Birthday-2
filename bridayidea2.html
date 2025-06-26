@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <link rel="stylesheet" href="birtdaygift2.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+      
+
+    </style>
+</head>
+<body>
+    <!-- Balloons -->
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+
+
+    <!-- Heartfelt Message -->
+    <div class="message">
+        <h2>The Sun , Moon and Stars </h2>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div id="countdown"></div>
+
+    <!-- 3D Rotating Box -->
+    <div class="box" id="rotatingBox" style="display: none;">
+    <span class="image" style="--i:1"><img src="./AMNT8941.JPG" alt=""></span>
+    <span class="image" style="--i:2"><img src="./IXZJ1244.JPG" alt=""></span>
+    <span class="image" style="--i:3"><img src="./SXXT6196.JPG" alt=""></span>
+    <span class="image" style="--i:4"><img src="./TRSX6434.JPG" alt=""></span>
+    <span class="image" style="--i:5"><img src="./UAWZ7196.JPG" alt=""></span>
+    <span class="image" style="--i:6"><img src="./CBLH2312.JPG" alt=""></span>
+    <span class="image" style="--i:7"><img src="./RKQQ9675.JPG" alt=""></span>
+    <span class="image" style="--i:8"><img src="./DXDS4266.JPG" alt=""></span>
+</div>
+
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+        <source src="happy_birthday_song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+
+
+
+       // Confetti Animation
+let confettiInterval = setInterval(launchConfetti, 2950); // Store the interval ID
+
+function launchConfetti() {
+    confetti({
+        particleCount: 500,
+        spread: 80,
+        origin: { y: 0.9 }
+    });
+}
+
+// Countdown Timer
+const countdown = document.getElementById('countdown');
+const rotatingBox = document.getElementById('rotatingBox'); // Get the 3D box element
+const balloons = document.querySelectorAll('.balloon'); // Get all balloon elements
+const images = document.querySelectorAll('.image'); // Get all images
+const targetDate = new Date('June 27, 2025 00:00:00').getTime(); // Replace with the actual date and time
+
+
+
+// Countdown Timer Logic
+setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    if (distance < 0) {
+        clearInterval(); // Stop the countdown timer
+        clearInterval(confettiInterval); // Stop the confetti animation
+
+        // Update the countdown element with the birthday message and style
+        countdown.innerHTML = "The Sun, Moon and Stars";
+        countdown.style.marginLeft = "44%"; // Move to the right
+        countdown.style.fontSize = "1.8rem"; // Optional: Adjust font size
+        countdown.style.color = "white"; // Optional: Add a festive color
+
+        // Update the message element with "Happy Birthday, AdeSola"
+        const message = document.querySelector('.message');
+        message.innerHTML = "<h2>Happy Birthday, AdeSola</h2>";
+        message.style.marginLeft = "87%"; // Move to the center
+        message.style.fontSize = "1.3rem"; // Optional: Adjust font size
+        message.style.color = "white"; // Optional: Add a festive color
+
+        rotatingBox.style.display = "block"; // Reveal the 3D rotating box
+
+        // Stop the balloons
+        balloons.forEach(balloon => {
+            balloon.style.animation = "none"; // Stop the animation
+            balloon.style.display = "none"; // Optionally hide the balloons
+        });
+    }
+}, 1000);
+
+    </script>
+</body>
+</html>
